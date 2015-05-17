@@ -1,19 +1,18 @@
-char inData[100]; // Or whatever size you need
-byte index = 0;
+int incomingByte = 0;   // for incoming serial data
  
 void setup() {
-        Serial.begin(115200);     // opens serial port, sets data rate 
+        Serial.begin(115200);     // opens serial port, sets data rate to 9600 bps
 }
-
-void loop()
-{
-  while(Serial.available() > 0)
-  {
-     char aChar = Serial.read();
-
-     inData[index] = aChar; // Add the character to the array
-     index++;   // Point to the next position
-     inData[index] = '\0'; // NULL terminate the array
-  }
-  Serial.println(inData);
+ 
+void loop() {
+ 
+        // send data only when you receive data:
+        if (Serial.available() > 0) {
+                // read the incoming byte:
+                incomingByte = Serial.read();
+ 
+                // say what you got:
+                Serial.print("I received: ");
+                Serial.println(incomingByte, DEC);
+        }
 }
